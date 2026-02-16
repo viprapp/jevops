@@ -5,6 +5,7 @@ and operational docs.
 
 - Website: <https://jevops.de>
 - GitHub: <https://github.com/jevops-de>
+- Status: [![ci](https://github.com/viprapp/jevops/actions/workflows/ci.yml/badge.svg)](https://github.com/viprapp/jevops/actions/workflows/ci.yml)
 
 ## Portfolio highlights
 
