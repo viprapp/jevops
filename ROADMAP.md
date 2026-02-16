@@ -66,7 +66,7 @@ confidently.
 **Evidence:** `docs/foundations/` (short notes + practical examples).
 
 - [x] Linux basics (processes/services, permissions, logs)
-- [ ] Networking basics (DNS, HTTP/HTTPS, ports, debugging tools)
+- [x] Networking basics (DNS, HTTP/HTTPS, ports, debugging tools)
 - [ ] Git workflow (branches, PRs, resolving conflicts)
 
 ---
