@@ -7,9 +7,9 @@ docs) instead of course notes.
 ## Principles (how this roadmap stays relevant)
 
 - **Evidence-first:** A stage is only "done" if there is clickable proof in
-this repo.
+  this repo.
 - **Stay current:** Version-sensitive guidance (CI flags, GitHub settings,
-security tooling) is verified against primary docs before adoption.
+  security tooling) is verified against primary docs before adoption.
 - **Security-by-default:** Least privilege, no long-lived credentials when
 - avoidable, and early supply chain signals (SBOM, provenance).
 - **Shift-left:** Security and quality checks run early and automatically.
@@ -27,15 +27,15 @@ security tooling) is verified against primary docs before adoption.
 
 ## Progress overview
 
-| Stage | Goal (Outcome) | Status | Evidence |
-|------:|-----------------|:------:|----------|
-| 0 | Portfolio setup | 🟩 | README, CI badge |
-| 1 | Foundations | 🟨 | `docs/foundations/` |
-| 2 | Containers | ⬜ | `projects/app/` |
-| 3 | CI/CD | ⬜ | `.github/workflows/` |
-| 4 | Cloud + IaC | ⬜ | `projects/iac/` |
-| 5 | Kubernetes | ⬜ | `projects/k8s/` |
-| 6 | DevSecOps + Observability | ⬜ | `docs/security/`, `docs/observability/` |
+| Stage | Goal (Outcome)            | Status | Evidence                                |
+| ----: | ------------------------- | :----: | --------------------------------------- |
+|     0 | Portfolio setup           |   🟩   | README, CI badge                        |
+|     1 | Foundations               |   🟨   | `docs/foundations/`                     |
+|     2 | Containers                |   ⬜   | `projects/app/`                         |
+|     3 | CI/CD                     |   ⬜   | `.github/workflows/`                    |
+|     4 | Cloud + IaC               |   ⬜   | `projects/iac/`                         |
+|     5 | Kubernetes                |   ⬜   | `projects/k8s/`                         |
+|     6 | DevSecOps + Observability |   ⬜   | `docs/security/`, `docs/observability/` |
 
 **Status legend:** ⬜ planned - 🟨 in progress - 🟩 done
 
@@ -53,9 +53,9 @@ and secure defaults.
 - [x] `README.md` with highlights + quickstart
 - [x] Basic CI on PR (lint/test)
 - [x] Protect `main` using **rulesets** or branch protection (PR required,
-required checks).
+      required checks).
 - [ ] Set GitHub Actions token permissions to **least privilege** (read by
-default, elevate per job).
+      default, elevate per job).
 
 ---
 
@@ -93,7 +93,7 @@ security hygiene.
 - [ ] Deploy on merge to `main`
 - [ ] Use least-privilege `GITHUB_TOKEN` permissions in workflows.
 - [ ] Prepare for secure deployments with **OIDC** (avoid long-lived cloud
-credentials where possible).
+      credentials where possible).
 
 ---
 
@@ -129,13 +129,13 @@ Code.
 - [ ] CI security checks (secrets, dependencies, image scanning)
 - [ ] Generate an **SBOM** (CycloneDX or SPDX) and publish as an artifact.
 - [ ] Add build **provenance/attestations** for key artifacts when the pipeline
-stabilizes.
+      stabilizes.
 - [ ] Track repo security posture with OpenSSF **Scorecard** (periodic check,
-badge optional).
+      badge optional).
 - [ ] Monitoring/logging basics + one alert
 - [ ] One failure drill + short postmortem in `docs/postmortems/`
 - [ ] (Optional) Map improvements to a recognized framework for credibility
-(NIST SSDF).
+      (NIST SSDF).
 
 ---
 
@@ -143,6 +143,6 @@ badge optional).
 
 - I keep stages intentionally high-level to avoid tool overload.
 - Each stage is considered "done" only when there is clickable evidence in this
-repo.
+  repo.
 - Repo and pipeline security practices follow modern guidance (shift-left, least
-privilege, OIDC, provenance, SBOM).
+  privilege, OIDC, provenance, SBOM).

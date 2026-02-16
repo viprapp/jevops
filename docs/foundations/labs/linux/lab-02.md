@@ -1,6 +1,7 @@
 # Lab 2 - DNS vs HTTP vs TLS: isolate the failure
 
 ## Goal
+
 Quickly determine whether a connectivity issue is DNS, routing, TCP, TLS, or
 the application.
 
@@ -13,13 +14,14 @@ the application.
 - Necessary packages: bind (dig), gnu-netcat (nc)
 
 ## 0) Baseline: IP + route
+
 ```sh
 [root@arch-m1 ~]# ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
        valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host noprefixroute 
+    inet6 ::1/128 scope host noprefixroute
        valid_lft forever preferred_lft forever
 2: enp0s1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
     link/ether 16:7c:df:f1:fc:de brd ff:ff:ff:ff:ff:ff
@@ -28,24 +30,24 @@ the application.
        valid_lft 861869sec preferred_lft 861869sec
     inet 192.168.178.47/24 brd 192.168.178.255 scope global secondary dynamic noprefixroute enp0s1
        valid_lft 861869sec preferred_lft 861869sec
-    inet6 2003:e4:df40:2800:fe01:7e5b:ff9a:f5de/64 scope global dynamic noprefixroute 
+    inet6 2003:e4:df40:2800:fe01:7e5b:ff9a:f5de/64 scope global dynamic noprefixroute
        valid_lft 6755sec preferred_lft 1355sec
-    inet6 fdb7:5bd9:a39:0:42a8:c738:c114:6ce2/64 scope global dynamic noprefixroute 
+    inet6 fdb7:5bd9:a39:0:42a8:c738:c114:6ce2/64 scope global dynamic noprefixroute
        valid_lft 6755sec preferred_lft 3155sec
-    inet6 2003:e4:df40:2800:147c:dfff:fef1:fcde/64 scope global dynamic mngtmpaddr noprefixroute 
+    inet6 2003:e4:df40:2800:147c:dfff:fef1:fcde/64 scope global dynamic mngtmpaddr noprefixroute
        valid_lft 6755sec preferred_lft 1355sec
-    inet6 fdb7:5bd9:a39:0:147c:dfff:fef1:fcde/64 scope global dynamic mngtmpaddr noprefixroute 
+    inet6 fdb7:5bd9:a39:0:147c:dfff:fef1:fcde/64 scope global dynamic mngtmpaddr noprefixroute
        valid_lft 6755sec preferred_lft 3155sec
-    inet6 fe80::e810:2768:b14b:30c1/64 scope link noprefixroute 
+    inet6 fe80::e810:2768:b14b:30c1/64 scope link noprefixroute
        valid_lft forever preferred_lft forever
 [root@arch-m1 ~]# ip route
-default via 192.168.178.1 dev enp0s1 proto dhcp src 192.168.178.47 metric 100 
-default via 192.168.178.1 dev enp0s1 proto dhcp src 192.168.178.45 metric 1024 
-192.168.178.0/24 dev enp0s1 proto kernel scope link src 192.168.178.47 metric 100 
-192.168.178.0/24 dev enp0s1 proto kernel scope link src 192.168.178.45 metric 1024 
-192.168.178.1 dev enp0s1 proto dhcp scope link src 192.168.178.45 metric 1024 
-192.168.178.7 dev enp0s1 proto dhcp scope link src 192.168.178.45 metric 1024 
-[root@arch-m1 ~]# 
+default via 192.168.178.1 dev enp0s1 proto dhcp src 192.168.178.47 metric 100
+default via 192.168.178.1 dev enp0s1 proto dhcp src 192.168.178.45 metric 1024
+192.168.178.0/24 dev enp0s1 proto kernel scope link src 192.168.178.47 metric 100
+192.168.178.0/24 dev enp0s1 proto kernel scope link src 192.168.178.45 metric 1024
+192.168.178.1 dev enp0s1 proto dhcp scope link src 192.168.178.45 metric 1024
+192.168.178.7 dev enp0s1 proto dhcp scope link src 192.168.178.45 metric 1024
+[root@arch-m1 ~]#
 ```
 
 ## 1) Can I reach the internet without DNS?
@@ -122,8 +124,8 @@ nameserver fd00::be24:11ff:fea6:4c5b
 search .
 [root@arch-m1 ~]# getent ahosts jevops.de
 15.197.162.184  STREAM jevops.de
-15.197.162.184  DGRAM  
-15.197.162.184  RAW    
+15.197.162.184  DGRAM
+15.197.162.184  RAW
 ```
 
 ## 4) DNS chain (authoritative trace)
@@ -205,13 +207,13 @@ jevops.de [15.197.162.184] 443 (https) open
 *   Certificate level 2: Public key type RSA (4096/152 Bits/secBits), signed using sha256WithRSAEncryption
 *   subjectAltName: "jevops.de" matches cert's "jevops.de"
 * SSL certificate verified via OpenSSL.
-* Established connection to jevops.de (15.197.162.184 port 443) from 192.168.178.47 port 53600 
+* Established connection to jevops.de (15.197.162.184 port 443) from 192.168.178.47 port 53600
 * using HTTP/1.x
 > HEAD / HTTP/1.1
 > Host: jevops.de
 > User-Agent: curl/8.17.0
 > Accept: */*
-> 
+>
 * TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
 * TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
 * Request completely sent off
@@ -229,14 +231,14 @@ Connection: keep-alive
 z-urlredirect-redirected-for: 1335318262
 < Location: https://github.com/viprapp/jevops
 Location: https://github.com/viprapp/jevops
-< 
+<
 
 * Connection #0 to host jevops.de:443 left intact
 ```
 
 ## 6) HTTP vs HTTPS behavior
 
-_HTTPS can be seen in 5) above_
+HTTPS can be seen in 5) above
 
 ```sh
 [root@arch-m1 ~]# curl -vI http://jevops.de
@@ -244,13 +246,13 @@ _HTTPS can be seen in 5) above_
 * IPv6: (none)
 * IPv4: 15.197.162.184
 *   Trying 15.197.162.184:80...
-* Established connection to jevops.de (15.197.162.184 port 80) from 192.168.178.47 port 49808 
+* Established connection to jevops.de (15.197.162.184 port 80) from 192.168.178.47 port 49808
 * using HTTP/1.x
 > HEAD / HTTP/1.1
 > Host: jevops.de
 > User-Agent: curl/8.17.0
 > Accept: */*
-> 
+>
 * Request completely sent off
 < HTTP/1.1 302 Moved Temporarily
 HTTP/1.1 302 Moved Temporarily
@@ -266,7 +268,7 @@ z-urlredirect-redirected-for: 1335318262
 Location: https://github.com/viprapp/jevops
 < Content-type: text/html
 Content-type: text/html
-< 
+<
 
 * Connection #0 to host jevops.de:80 left intact
 ```
@@ -295,24 +297,24 @@ DONE
 
 ```sh
 [root@arch-m1 ~]# ss -tulpn
-Netid  State   Recv-Q  Send-Q                        Local Address:Port     Peer Address:Port  Process                                     
-udp    UNCONN  0       0                                127.0.0.54:53            0.0.0.0:*      users:(("systemd-resolve",pid=261,fd=24))  
-udp    UNCONN  0       0                             127.0.0.53%lo:53            0.0.0.0:*      users:(("systemd-resolve",pid=261,fd=22))  
-udp    UNCONN  0       0                     192.168.178.45%enp0s1:68            0.0.0.0:*      users:(("systemd-network",pid=273,fd=24))  
-udp    UNCONN  0       0                                   0.0.0.0:5353          0.0.0.0:*      users:(("systemd-resolve",pid=261,fd=17))  
-udp    UNCONN  0       0                                   0.0.0.0:5355          0.0.0.0:*      users:(("systemd-resolve",pid=261,fd=13))  
-udp    UNCONN  0       0                                      [::]:5353             [::]:*      users:(("systemd-resolve",pid=261,fd=18))  
-udp    UNCONN  0       0                                      [::]:5355             [::]:*      users:(("systemd-resolve",pid=261,fd=15))  
-udp    UNCONN  70880   0        [fe80::e810:2768:b14b:30c1]%enp0s1:546              [::]:*      users:(("NetworkManager",pid=334,fd=28))   
-udp    UNCONN  0       0        [fe80::e810:2768:b14b:30c1]%enp0s1:546              [::]:*      users:(("systemd-network",pid=273,fd=26))  
-tcp    LISTEN  0       4096                             127.0.0.54:53            0.0.0.0:*      users:(("systemd-resolve",pid=261,fd=25))  
-tcp    LISTEN  0       4096                          127.0.0.53%lo:53            0.0.0.0:*      users:(("systemd-resolve",pid=261,fd=23))  
-tcp    LISTEN  0       128                                 0.0.0.0:22            0.0.0.0:*      users:(("sshd",pid=358,fd=6))              
-tcp    LISTEN  0       4096                                0.0.0.0:5355          0.0.0.0:*      users:(("systemd-resolve",pid=261,fd=14))  
-tcp    LISTEN  0       128                                    [::]:22               [::]:*      users:(("sshd",pid=358,fd=7))              
-tcp    LISTEN  0       4096                                   [::]:5355             [::]:*      users:(("systemd-resolve",pid=261,fd=16))  
+Netid  State   Recv-Q  Send-Q                        Local Address:Port     Peer Address:Port  Process
+udp    UNCONN  0       0                                127.0.0.54:53            0.0.0.0:*      users:(("systemd-resolve",pid=261,fd=24))
+udp    UNCONN  0       0                             127.0.0.53%lo:53            0.0.0.0:*      users:(("systemd-resolve",pid=261,fd=22))
+udp    UNCONN  0       0                     192.168.178.45%enp0s1:68            0.0.0.0:*      users:(("systemd-network",pid=273,fd=24))
+udp    UNCONN  0       0                                   0.0.0.0:5353          0.0.0.0:*      users:(("systemd-resolve",pid=261,fd=17))
+udp    UNCONN  0       0                                   0.0.0.0:5355          0.0.0.0:*      users:(("systemd-resolve",pid=261,fd=13))
+udp    UNCONN  0       0                                      [::]:5353             [::]:*      users:(("systemd-resolve",pid=261,fd=18))
+udp    UNCONN  0       0                                      [::]:5355             [::]:*      users:(("systemd-resolve",pid=261,fd=15))
+udp    UNCONN  70880   0        [fe80::e810:2768:b14b:30c1]%enp0s1:546              [::]:*      users:(("NetworkManager",pid=334,fd=28))
+udp    UNCONN  0       0        [fe80::e810:2768:b14b:30c1]%enp0s1:546              [::]:*      users:(("systemd-network",pid=273,fd=26))
+tcp    LISTEN  0       4096                             127.0.0.54:53            0.0.0.0:*      users:(("systemd-resolve",pid=261,fd=25))
+tcp    LISTEN  0       4096                          127.0.0.53%lo:53            0.0.0.0:*      users:(("systemd-resolve",pid=261,fd=23))
+tcp    LISTEN  0       128                                 0.0.0.0:22            0.0.0.0:*      users:(("sshd",pid=358,fd=6))
+tcp    LISTEN  0       4096                                0.0.0.0:5355          0.0.0.0:*      users:(("systemd-resolve",pid=261,fd=14))
+tcp    LISTEN  0       128                                    [::]:22               [::]:*      users:(("sshd",pid=358,fd=7))
+tcp    LISTEN  0       4096                                   [::]:5355             [::]:*      users:(("systemd-resolve",pid=261,fd=16))
 [root@arch-m1 ~]# ss -tn state established
-Recv-Q               Send-Q                               Local Address:Port                               Peer Address:Port              
+Recv-Q               Send-Q                               Local Address:Port                               Peer Address:Port
 ```
 
 ## Decision tree (what I concluded)
@@ -323,14 +325,15 @@ Recv-Q               Send-Q                               Local Address:Port    
 - If TCP connect works but HTTPS fails -> TLS/certs/SNI/time issue.
 - If HTTPS works but app returns 4xx/5xx -> application/config/logs.
 
-
 ### Notes on tools (canonical docs)
+
 - `ip route` / `ip a` are iproute2 staples.
 - `ss` is the modern socket tool (netstat replacement).
 - `resolvectl` is for systemd-resolved environments.
 - `dig` is the modern DNS lookup tool. (`getent` and `nslookup` are alternatives)
 
 ## “Done” checklist for this lab
+
 - [x] `ip a` + `ip route` included
 - [x] DNS results shown (at least `dig ... +short`)
 - [x] One HTTP and one HTTPS request captured (`curl -vI`)

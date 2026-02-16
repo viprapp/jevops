@@ -101,9 +101,9 @@ Feb 16 20:03:53 arch-m1 systemd[1]: Started OpenSSH Daemon.
 ## What I learned
 
 - `systemctl stop/start` changes unit state and is reflected in
-`systemctl status/is-active`.
+  `systemctl status/is-active`.
 - `journalctl -u <unit> -b` reliably narrows logs to one unit in the current
-boot.
+  boot.
 
 Why these commands are “canonical”: `systemctl start/stop/status` are standard
 systemd operations and `journalctl` is the standard interface to query the

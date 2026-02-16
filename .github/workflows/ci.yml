@@ -18,8 +18,8 @@ jobs:
       - name: Markdown lint
         uses: DavidAnson/markdownlint-cli2-action@v19
         with:
-          globs: |
-            **/*.md
+          globs: "**/*.md"
+          config: ".markdownlint-cli2.jsonc"
 
       # Link check (keeps the portfolio clean)
       - name: Link check
