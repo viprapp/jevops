@@ -18,7 +18,7 @@ docs) instead of course notes.
 
 ## Current status
 
-- **Current focus:** Adding foundations and optimizing the roadmap
+- **Current focus:** Current focus: Stage 1 Part 3 (branch A)
 - **Now working on:** **Stage 1** - Foundations
 - **Last completed:** **Stage 0** - Portfolio setup
 - **Next up:** **Stage 2** - Containers
