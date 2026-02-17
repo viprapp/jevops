@@ -18,10 +18,10 @@ docs) instead of course notes.
 
 ## Current status
 
-- **Current focus:** Current focus: Stage 1 Part 3 (branch B)
-- **Now working on:** **Stage 1** - Foundations
-- **Last completed:** **Stage 0** - Portfolio setup
-- **Next up:** **Stage 2** - Containers
+- **Current focus:** Stage 2 - Docker fundamentals (images, layers, volumes, networking)
+- **Now working on:** **Stage 2** - Containers
+- **Last completed:** **Stage 1** - Foundations
+- **Next up:** **Stage 3** - CI/CD
 
 ---
 
@@ -30,8 +30,8 @@ docs) instead of course notes.
 | Stage | Goal (Outcome)            | Status | Evidence                                |
 | ----: | ------------------------- | :----: | --------------------------------------- |
 |     0 | Portfolio setup           |   🟩   | README, CI badge                        |
-|     1 | Foundations               |   🟨   | `docs/foundations/`                     |
-|     2 | Containers                |   ⬜   | `projects/app/`                         |
+|     1 | Foundations               |   🟩   | `docs/foundations/`                     |
+|     2 | Containers                |   🟨   | `projects/app/`                         |
 |     3 | CI/CD                     |   ⬜   | `.github/workflows/`                    |
 |     4 | Cloud + IaC               |   ⬜   | `projects/iac/`                         |
 |     5 | Kubernetes                |   ⬜   | `projects/k8s/`                         |
@@ -67,7 +67,7 @@ confidently.
 
 - [x] Linux basics (processes/services, permissions, logs)
 - [x] Networking basics (DNS, HTTP/HTTPS, ports, debugging tools)
-- [ ] Git workflow (branches, PRs, resolving conflicts)
+- [x] Git workflow (branches, PRs, resolving conflicts)
 
 ---
 
