@@ -18,10 +18,10 @@ docs) instead of course notes.
 
 ## Current status
 
-- **Current focus:** Stage 2 - Docker fundamentals (images, layers, volumes, networking)
-- **Now working on:** **Stage 2** - Containers
-- **Last completed:** **Stage 1** - Foundations
-- **Next up:** **Stage 3** - CI/CD
+- **Current focus:** Stage 3 - CI/CD (PR checks + container build)
+- **Now working on:** **Stage 3** - CI/CD
+- **Last completed:** **Stage 2** - Containers
+- **Next up:** Stage 4 - Cloud + IaC
 
 ---
 
@@ -31,8 +31,8 @@ docs) instead of course notes.
 | ----: | ------------------------- | :----: | --------------------------------------- |
 |     0 | Portfolio setup           |   🟩   | README, CI badge                        |
 |     1 | Foundations               |   🟩   | `docs/foundations/`                     |
-|     2 | Containers                |   🟨   | `projects/app/`                         |
-|     3 | CI/CD                     |   ⬜   | `.github/workflows/`                    |
+|     2 | Containers                |   🟩   | `projects/app/`                         |
+|     3 | CI/CD                     |   🟨   | `.github/workflows/`                    |
 |     4 | Cloud + IaC               |   ⬜   | `projects/iac/`                         |
 |     5 | Kubernetes                |   ⬜   | `projects/k8s/`                         |
 |     6 | DevSecOps + Observability |   ⬜   | `docs/security/`, `docs/observability/` |
@@ -76,9 +76,9 @@ confidently.
 **Outcome:** I can ship a small app as a container and run it locally with Compose.
 **Evidence:** `projects/app/` (Dockerfile + Compose + run instructions).
 
-- [ ] Docker fundamentals (images, layers, volumes, networking)
-- [ ] Dockerfile best practices
-- [ ] Docker Compose local environment
+- [x] Docker fundamentals (images, layers, volumes, networking)
+- [x] Dockerfile best practices
+- [x] Docker Compose local environment
 
 ---
 
