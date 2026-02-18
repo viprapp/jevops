@@ -1,0 +1,16 @@
+site_name: JevOps
+docs_dir: docs
+sote_dir: site
+
+nav:
+  - Home: index.md
+  - Foundations:
+      - Overview: foundations/README.md
+      - Linux: foundations/linux.md
+      - Networking: foundations/networking.md
+      - Git: foundations/git.md
+  - Projects:
+      - Overview: projects/README.md
+      - App:
+          - Project: projects/app/README.md
+          - CI: projects/app/ci.md
