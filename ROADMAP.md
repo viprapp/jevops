@@ -18,10 +18,10 @@ docs) instead of course notes.
 
 ## Current status
 
-- **Current focus:** Stage 3 - CI/CD (PR checks + container build)
-- **Now working on:** **Stage 3** - CI/CD
-- **Last completed:** **Stage 2** - Containers
-- **Next up:** Stage 4 - Cloud + IaC
+- **Current focus:** Stage 4 - Cloud + IaC
+- **Now working on:** **Stage 4** - Cloud + IaC
+- **Last completed:** **Stage 3** - CI/CD
+- **Next up:** Stage 5 - Kubernetes
 
 ---
 
@@ -32,8 +32,8 @@ docs) instead of course notes.
 |     0 | Portfolio setup           |   🟩   | README, CI badge                        |
 |     1 | Foundations               |   🟩   | `docs/foundations/`                     |
 |     2 | Containers                |   🟩   | `projects/app/`                         |
-|     3 | CI/CD                     |   🟨   | `.github/workflows/`                    |
-|     4 | Cloud + IaC               |   ⬜   | `projects/iac/`                         |
+|     3 | CI/CD                     |   🟩   | `.github/workflows/`                    |
+|     4 | Cloud + IaC               |   🟨   | `projects/iac/`                         |
 |     5 | Kubernetes                |   ⬜   | `projects/k8s/`                         |
 |     6 | DevSecOps + Observability |   ⬜   | `docs/security/`, `docs/observability/` |
 
@@ -88,10 +88,10 @@ confidently.
 security hygiene.
 **Evidence:** `.github/workflows/` + workflow run history.
 
-- [ ] PR checks (lint/test)
-- [ ] Build and publish artifact (for example container image)
-- [ ] Deploy on merge to `main`
-- [ ] Use least-privilege `GITHUB_TOKEN` permissions in workflows.
+- [x] PR checks (lint/test)
+- [x] Build and publish artifact (for example container image)
+- [x] Deploy on merge to `main`
+- [x] Use least-privilege `GITHUB_TOKEN` permissions in workflows.
 - [ ] Prepare for secure deployments with **OIDC** (avoid long-lived cloud
       credentials where possible).
 
