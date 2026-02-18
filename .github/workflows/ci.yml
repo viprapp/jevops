@@ -55,7 +55,7 @@ jobs:
       - name: Compose up (smoke)
         working-directory: ./projects/app
         run: |
-          docker compose up -d --build
+          docker compose up -d --build --wait --wait-timeout 120
           docker compose ps
           curl -fsS http://localhost:8000/healthz
           docker compose logs --no-color --tail=200
