@@ -3,7 +3,7 @@ docs_dir: docs
 site_dir: site
 
 nav:
-  - Home: index.md
+  - Home: README.md
   - Foundations:
       - Overview: foundations/README.md
       - Linux: foundations/linux.md
